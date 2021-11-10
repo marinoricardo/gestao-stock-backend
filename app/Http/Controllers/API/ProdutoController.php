@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Produto;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
@@ -24,6 +25,7 @@ class ProdutoController extends Controller
     public function index()
     {
         //
+        // $role_id = Auth::user()->role_id;
         $produtos = $this->produto->with('categorias')->get();
         return response()->json(['data'=> $produtos, 'message' => "Produtos retrieved successfully"], 200);
     }
