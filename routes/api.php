@@ -22,3 +22,6 @@ Route::get('me', 'API\AuthController@me');
 Route::get('roles', 'API\RoleController@index');
 
 Route::resource('utilizadores', 'API\UtilizadorController');
+
+/// Categoiras
+Route::get('categorias', 'API\CategoriaController@index');
