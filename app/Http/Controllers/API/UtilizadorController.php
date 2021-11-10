@@ -82,7 +82,7 @@ class UtilizadorController extends Controller
 
             DB::commit();
 
-            return response()->json(["data" => $data, "message" => "Utilizador criado com sucesso"]);
+            return response()->json(["data" => $data, "message" => "Utilizador criado com sucesso"],200);
         }catch(Exception $e){
             DB::rollBack();
             return response()->json($e);

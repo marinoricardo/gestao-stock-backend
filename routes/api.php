@@ -22,6 +22,7 @@ Route::get('me', 'API\AuthController@me');
 Route::get('roles', 'API\RoleController@index');
 
 Route::resource('utilizadores', 'API\UtilizadorController');
+Route::resource('produtos', 'API\ProdutoController');
 
 /// Categoiras
 Route::get('categorias', 'API\CategoriaController@index');
