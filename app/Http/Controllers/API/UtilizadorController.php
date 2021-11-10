@@ -76,10 +76,10 @@ class UtilizadorController extends Controller
             $data = [
                 'id' => $utilizador->id,
                 'name' => $utilizador->name,
+                'email' => $utilizador->email,
                 'role_id' => $utilizador->role_id
 
             ];
-
             DB::commit();
 
             return response()->json(["data" => $data, "message" => "Utilizador criado com sucesso"],200);

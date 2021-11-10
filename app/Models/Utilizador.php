@@ -18,4 +18,9 @@ class Utilizador extends Model
         'role_id' => 'integer',
         'user_id' => 'integer',
     ];
+
+    public function roles()
+    {
+        return $this->belongsTo(\App\Models\Role::class, 'role_id');
+    }
 }
