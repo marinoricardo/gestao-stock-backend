@@ -174,7 +174,7 @@ class UtilizadorController extends Controller
         DB::beginTransaction();
         try {
 
-            /** @var User $user belongs to utilizador_farmacia being updated*/
+            /** @var User $user belongs to utilizador being updated*/
             $user = $this->user->find($utilizador->user_id);
 
             if (empty($user)) {
