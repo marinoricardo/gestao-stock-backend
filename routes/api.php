@@ -21,12 +21,14 @@ Route::get('me', 'API\AuthController@me');
 
 Route::get('roles', 'API\RoleController@index');
 
-Route::resource('utilizadores', 'API\UtilizadorController');
+
 
 
 /// Categoiras
-Route::get('categorias', 'API\CategoriaController@index');
+
 
 Route::group(['middleware' => ['auth.jwt']], function () {
-    Route::resource('produtos', 'API\ProdutoController');    
+    Route::resource('produtos', 'API\ProdutoController');  
+    Route::get('categorias', 'API\CategoriaController@index');  
+    Route::resource('utilizadores', 'API\UtilizadorController');
 });
