@@ -25,10 +25,13 @@ Route::get('roles', 'API\RoleController@index');
 
 
 /// Categoiras
+Route::resource('produtos', 'API\ProdutoController');  
+Route::get('categorias', 'API\CategoriaController@index');  
+Route::resource('utilizadores', 'API\UtilizadorController');
 
 
-Route::group(['middleware' => ['auth.jwt']], function () {
-    Route::resource('produtos', 'API\ProdutoController');  
-    Route::get('categorias', 'API\CategoriaController@index');  
-    Route::resource('utilizadores', 'API\UtilizadorController');
-});
+// Route::group(['middleware' => ['auth.jwt']], function () {
+//     Route::resource('produtos', 'API\ProdutoController');  
+//     Route::get('categorias', 'API\CategoriaController@index');  
+//     Route::resource('utilizadores', 'API\UtilizadorController');
+// });

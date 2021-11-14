@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <v-app id="app">
         <!-- <v-container class="fill-height" fluid style="height: 100vh">
             <v-row class="fill-height">
                 <v-col cols="12">
@@ -22,10 +22,9 @@
             </v-row>
 
         </v-container> -->
-        <example-component></example-component>
-        {{-- <loader></loader>
-        <router-view></router-view> --}}
-    </div>
+        <loader></loader>
+        <router-view></router-view>
+    </v-app>
     <script src="{{ asset('js/app.js')}}"></script>
 </body>
 
