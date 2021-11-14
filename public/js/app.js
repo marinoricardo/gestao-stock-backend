@@ -2201,8 +2201,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      dialog: false
+    };
+  },
   components: {
     PrimeRate: _pages_Products_PrimeRate_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -25264,30 +25311,210 @@ var render = function () {
         [
           _c(
             "v-row",
-            { staticClass: "right", attrs: { wrap: "" } },
+            { attrs: { wrap: "" } },
             [
+              _c("v-col", { attrs: { cols: "9" } }),
+              _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "12" } },
+                { attrs: { cols: "3" } },
                 [
                   _c(
-                    "router-link",
-                    {
-                      staticStyle: { "text-decoration": "none" },
-                      attrs: { to: { name: "products.create" } },
-                    },
+                    "v-row",
+                    { attrs: { justify: "center" } },
                     [
                       _c(
-                        "v-btn",
+                        "v-dialog",
                         {
-                          staticStyle: { color: "#fff" },
-                          attrs: { color: "#F4A460" },
+                          attrs: { persistent: "", "max-width": "600px" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function (ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticStyle: { color: "#fff" },
+                                          attrs: { color: "#F4A460" },
+                                        },
+                                        "v-btn",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _c("v-icon", { staticClass: "mr-2" }, [
+                                        _vm._v("mdi-plus"),
+                                      ]),
+                                      _vm._v("Produto\n\t\t\t\t\t\t\t"),
+                                    ],
+                                    1
+                                  ),
+                                ]
+                              },
+                            },
+                          ]),
+                          model: {
+                            value: _vm.dialog,
+                            callback: function ($$v) {
+                              _vm.dialog = $$v
+                            },
+                            expression: "dialog",
+                          },
                         },
                         [
-                          _c("v-icon", { staticClass: "mr-2" }, [
-                            _vm._v("mdi-plus"),
-                          ]),
-                          _vm._v("Adicionar\n\t\t\t\t\t"),
+                          _vm._v(" "),
+                          _c(
+                            "v-card",
+                            [
+                              _c(
+                                "v-toolbar",
+                                { attrs: { color: "#D2691E", dark: "" } },
+                                [
+                                  _c("v-card-title", [
+                                    _c("span", { staticClass: "text-h5" }, [
+                                      _vm._v("Adicionar Produto"),
+                                    ]),
+                                  ]),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-text",
+                                [
+                                  _c(
+                                    "v-container",
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c(
+                                            "v-col",
+                                            {
+                                              attrs: {
+                                                cols: "12",
+                                                sm: "6",
+                                                md: "6",
+                                              },
+                                            },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Nome do Produto",
+                                                  required: "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            {
+                                              attrs: {
+                                                cols: "12",
+                                                sm: "6",
+                                                md: "6",
+                                              },
+                                            },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  items: [
+                                                    "Periciveis",
+                                                    "Nao periciveis",
+                                                  ],
+                                                  label: "Categoria",
+                                                  required: "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Preço ( Meticais )",
+                                                  type: "number",
+                                                  required: "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-textarea", {
+                                                attrs: {
+                                                  name: "input-7-1",
+                                                  filled: "",
+                                                  label: "Descrição",
+                                                  "auto-grow": "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "error" },
+                                      on: {
+                                        click: function ($event) {
+                                          _vm.dialog = false
+                                        },
+                                      },
+                                    },
+                                    [_vm._v("Cancelar")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "#D2691E", dark: "" },
+                                      on: {
+                                        click: function ($event) {
+                                          _vm.dialog = false
+                                        },
+                                      },
+                                    },
+                                    [_vm._v("Submeter")]
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
                         ],
                         1
                       ),
