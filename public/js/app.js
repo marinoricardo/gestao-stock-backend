@@ -2183,7 +2183,24 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _pages_Products_PrimeRate_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pages/Products/PrimeRate.vue */ "./resources/js/components/pages/Products/PrimeRate.vue");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2250,8 +2267,59 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false
     };
   },
-  components: {
-    PrimeRate: _pages_Products_PrimeRate_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  props: {
+    products: {
+      require: false,
+      type: Object | Array,
+      "default": function _default() {
+        return {
+          id: '',
+          name: '',
+          price: '',
+          description: '',
+          categoria_id: ''
+        };
+      }
+    }
+  },
+  computed: {
+    categoria: function categoria() {
+      return this.$store.state.Products.categorias.data;
+    }
+  },
+  created: function created() {
+    this.$store.dispatch('getCategory');
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      this.$store.dispatch('storeProducts', this.products).then(function () {
+        sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          title: "Sucesso!",
+          text: 'Produto criado com sucesso',
+          icon: "success",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#f15726"
+        });
+        _this.dialog = false;
+
+        _this.$router.push({
+          name: 'products'
+        });
+      }) // .then(() => this.$router.push({name: 'products'}))
+      ["catch"](function (errors) {
+        // console.log("erro", errors.response.data)
+        // this.errors = errors.response.data.errors
+        sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          title: "Ooopss...",
+          text: 'Por favor preencha todos campos devidamente',
+          icon: "error",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#f15726"
+        });
+      });
+    }
   }
 });
 
@@ -25410,6 +25478,17 @@ var render = function () {
                                                   label: "Nome do Produto",
                                                   required: "",
                                                 },
+                                                model: {
+                                                  value: _vm.products.name,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.products,
+                                                      "name",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "products.name",
+                                                },
                                               }),
                                             ],
                                             1
@@ -25427,12 +25506,25 @@ var render = function () {
                                             [
                                               _c("v-select", {
                                                 attrs: {
-                                                  items: [
-                                                    "Periciveis",
-                                                    "Nao periciveis",
-                                                  ],
+                                                  items: _vm.categoria.data,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
                                                   label: "Categoria",
+                                                  placeholder: "Categoria",
                                                   required: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.products.categoria_id,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.products,
+                                                      "categoria_id",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "products.categoria_id",
                                                 },
                                               }),
                                             ],
@@ -25449,6 +25541,17 @@ var render = function () {
                                                   type: "number",
                                                   required: "",
                                                 },
+                                                model: {
+                                                  value: _vm.products.price,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.products,
+                                                      "price",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "products.price",
+                                                },
                                               }),
                                             ],
                                             1
@@ -25464,6 +25567,19 @@ var render = function () {
                                                   filled: "",
                                                   label: "Descrição",
                                                   "auto-grow": "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.products.description,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.products,
+                                                      "description",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "products.description",
                                                 },
                                               }),
                                             ],
@@ -25503,7 +25619,7 @@ var render = function () {
                                       attrs: { color: "#D2691E", dark: "" },
                                       on: {
                                         click: function ($event) {
-                                          _vm.dialog = false
+                                          return _vm.onSubmit()
                                         },
                                       },
                                     },
@@ -90361,11 +90477,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    itens: {}
+    itens: {},
+    categorias: {}
   },
   mutations: {
     LOAD_PRODUCTS: function LOAD_PRODUCTS(state, products) {
       state.itens = products;
+    },
+    LOAD_CATEGORY: function LOAD_CATEGORY(state, categoria) {
+      state.categorias = categoria;
     }
   },
   actions: {
@@ -90384,13 +90504,27 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    storeProducts: function storeProducts(_ref2, params) {
+    getCategory: function getCategory(_ref2, context) {
       var commit = _ref2.commit;
+      // context.commit('CHANGE_LOADING', true)
+      commit('loader/CHANGE_LOADING', true, {
+        root: true
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"], "/categorias")).then(function (response) {
+        commit('LOAD_CATEGORY', response);
+      })["finally"](function () {
+        commit('loader/CHANGE_LOADING', false, {
+          root: true
+        });
+      });
+    },
+    storeProducts: function storeProducts(_ref3, params) {
+      var commit = _ref3.commit;
       commit('loader/CHANGE_LOADING', true, {
         root: true
       });
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"], "/products"), params).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"], "/produtos"), params).then(function (response) {
           return resolve();
         })["catch"](function (error) {
           return reject(error);
@@ -90401,8 +90535,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    loadProduct: function loadProduct(_ref3, id) {
-      var commit = _ref3.commit;
+    loadProduct: function loadProduct(_ref4, id) {
+      var commit = _ref4.commit;
       commit('loader/CHANGE_LOADING', true, {
         root: true
       });
@@ -90418,8 +90552,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    updateProduct: function updateProduct(_ref4, params) {
-      var commit = _ref4.commit;
+    updateProduct: function updateProduct(_ref5, params) {
+      var commit = _ref5.commit;
       commit('loader/CHANGE_LOADING', true, {
         root: true
       });
@@ -90435,8 +90569,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    destroyProduct: function destroyProduct(_ref5, id) {
-      var commit = _ref5.commit;
+    destroyProduct: function destroyProduct(_ref6, id) {
+      var commit = _ref6.commit;
       // commit('loader/CHANGE_LOADING', true, { root: true })
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("".concat(_configs_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"], "/products/").concat(id)).then(function (response) {

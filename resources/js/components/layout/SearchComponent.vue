@@ -2,13 +2,10 @@
 	<v-row wrap>
 		<v-col cols="12">
 			<v-row wrap>
-				<v-col cols="9"></v-col>
+				<v-col cols="9">
+					<!-- {{ categoria.data }} -->
+				</v-col>
 				<v-col cols="3">
-					<!-- <router-link style="text-decoration: none;" :to="{ name: 'products.create' }">
-						<v-btn color="#F4A460" style="color: #fff;">
-							<v-icon class="mr-2" >mdi-plus</v-icon>Adicionar
-						</v-btn>
-					</router-link>-->
 					<v-row justify="center">
 						<v-dialog v-model="dialog" persistent max-width="600px">
 							<template v-slot:activator="{ on, attrs }">
@@ -26,17 +23,36 @@
 									<v-container>
 										<v-row>
 											<v-col cols="12" sm="6" md="6">
-												<v-text-field label="Nome do Produto" required></v-text-field>
+												<v-text-field v-model="products.name" label="Nome do Produto" required></v-text-field>
 											</v-col>
 											<v-col cols="12" sm="6" md="6">
-												<v-select :items="['Periciveis', 'Nao periciveis']" label="Categoria" required></v-select>
+												<v-select
+													v-model="products.categoria_id"
+													:items="categoria.data"
+													item-text="name"
+													item-value="id"
+													label="Categoria"
+													placeholder="Categoria"
+													required
+												></v-select>
 											</v-col>
 
 											<v-col cols="12">
-												<v-text-field label="Preço ( Meticais )" type="number" required></v-text-field>
+												<v-text-field
+													v-model="products.price"
+													label="Preço ( Meticais )"
+													type="number"
+													required
+												></v-text-field>
 											</v-col>
 											<v-col cols="12">
-												<v-textarea name="input-7-1" filled label="Descrição" auto-grow></v-textarea>
+												<v-textarea
+													v-model="products.description"
+													name="input-7-1"
+													filled
+													label="Descrição"
+													auto-grow
+												></v-textarea>
 											</v-col>
 											<!-- <v-col cols="12" sm="6">
 												<v-select :items="['Periciveis', 'Nao periciveis']" label="Age*" required></v-select>
@@ -47,7 +63,7 @@
 								<v-card-actions>
 									<v-spacer></v-spacer>
 									<v-btn color="error" @click="dialog = false">Cancelar</v-btn>
-									<v-btn color="#D2691E" dark @click="dialog = false">Submeter</v-btn>
+									<v-btn color="#D2691E" dark @click="onSubmit()">Submeter</v-btn>
 								</v-card-actions>
 							</v-card>
 						</v-dialog>
@@ -58,15 +74,67 @@
 	</v-row>
 </template>
 <script>
-import PrimeRate from '../pages/Products/PrimeRate.vue'
+import Swal from "sweetalert2/dist/sweetalert2.js";
 export default {
 	data() {
 		return {
 			dialog: false,
 		}
 	},
-	components: {
-		PrimeRate
+
+	props: {
+		products: {
+			require: false,
+			type: Object | Array,
+			default: () => {
+				return {
+					id: '',
+					name: '',
+					price: '',
+					description: '',
+					categoria_id: '',
+				}
+			}
+		},
+
+	},
+	computed: {
+		categoria() {
+			return this.$store.state.Products.categorias.data;
+		},
+	},
+	created() {
+		this.$store.dispatch('getCategory')
+	},
+
+	methods: {
+		onSubmit() {
+			this.$store.dispatch('storeProducts', this.products)
+				.then(() => {
+					Swal.fire({
+						title: "Sucesso!",
+						text: 'Produto criado com sucesso',
+						icon: "success",
+						confirmButtonText: "Ok",
+						confirmButtonColor: "#f15726",
+					})
+					this.dialog = false;
+					this.$router.push({ name: 'products' })
+				})
+				// .then(() => this.$router.push({name: 'products'}))
+				.catch(errors => {
+					// console.log("erro", errors.response.data)
+					// this.errors = errors.response.data.errors
+					
+					Swal.fire({
+						title: "Ooopss...",
+						text: 'Por favor preencha todos campos devidamente',
+						icon: "error",
+						confirmButtonText: "Ok",
+						confirmButtonColor: "#f15726",
+					})
+				})
+		},
 	}
 
 
